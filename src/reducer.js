@@ -1,9 +1,8 @@
-import { GET_TOTALS, CLEAR_CART, INCREASE, DECREASE, REMOVE } from "./action";
+import { GET_TOTALS, CLEAR_CART, TOGGLE_AMOUNT, REMOVE } from "./action";
 
 const reducer = (state, action) => {
   const { type, payload } = action;
   if (type === GET_TOTALS) {
-    console.log(state);
     let { total, amount } = state.cart.reduce(
       (acc, item) => {
         const { price, amount } = item;
@@ -27,39 +26,26 @@ const reducer = (state, action) => {
       cart: [],
     };
   }
-  if (type === INCREASE) {
-    let newCart = state.cart.map((item) => {
-      if (item.id === payload.id) {
-        item = { ...item, amount: item.amount + 1 };
-      }
-      return item;
-    });
-    return {
-      ...state,
-      cart: newCart,
-    };
-  }
-  if (type === DECREASE) {
-    let newCart = [];
-    if (payload.amount === 1) {
-      newCart = state.cart.filter((item) => item.id !== payload.id);
-    } else {
-      newCart = state.cart.map((item) => {
-        if (item.id === payload.id) {
-          item = { ...item, amount: item.amount - 1 };
-        }
-        return item;
-      });
-    }
-    return {
-      ...state,
-      cart: newCart,
-    };
-  }
   if (type === REMOVE) {
     return {
       ...state,
       cart: state.cart.filter((item) => item.id !== payload.id),
+    };
+  }
+  if (type === TOGGLE_AMOUNT) {
+    return {
+      ...state,
+      cart: state.cart.map((item) => {
+        if (item.id === payload.id) {
+          if (payload.toggle === "inc") {
+            item = { ...item, amount: item.amount + 1 };
+          }
+          if (payload.toggle === "dec") {
+            item = { ...item, amount: item.amount - 1 };
+          }
+        }
+        return item;
+      }),
     };
   }
   return state;
