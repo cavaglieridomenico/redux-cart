@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { INCREASE, DECREASE, REMOVE, removeItem } from "../actions";
+import { INCREASE, DECREASE, removeItem } from "../actions";
 
 const CartItem = ({
   img,
