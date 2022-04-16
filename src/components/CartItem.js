@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { REMOVE, TOGGLE_AMOUNT } from "../actions";
 
 const CartItem = ({ img, title, price, amount, remove, toggle }) => {
