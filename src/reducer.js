@@ -1,4 +1,4 @@
-import { GET_TOTALS, CLEAR_CART, TOGGLE_AMOUNT, REMOVE } from "./action";
+import { GET_TOTALS, CLEAR_CART, TOGGLE_AMOUNT, REMOVE } from "./actions";
 
 const reducer = (state, action) => {
   const { type, payload } = action;
